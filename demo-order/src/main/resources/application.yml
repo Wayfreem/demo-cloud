@@ -5,6 +5,15 @@ spring:
   application:
     name: demo-order
 
+  # 增加 zipkin
+  zipkin:
+    base-url: http://127.0.0.1:9411/ #zipkin地址
+    discovery-client-enabled: false  #不用开启服务发现
+
+  sleuth:
+    sampler:
+      probability: 1.0 #采样百分
+
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://192.168.148.139:3306/cloud_video?useUnicode=true&characterEncoding=utf-8&useSSL=false
