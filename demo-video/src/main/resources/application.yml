@@ -1,0 +1,31 @@
+server:
+  port: 8000
+
+spring:
+  application:
+    name: demo-video
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.148.140:3306/cloud_video?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: admin
+    password: 123456
+
+  cloud:
+
+    ## 增加 nacos 服务发现地址
+    nacos:
+      discovery:
+        server-addr: 192.168.139.1:8848
+
+    ## 增加 sentinel 服务发现地址
+    sentinel:
+      transport:
+        dashboard: 127.0.0.1:8858
+        port: 9998
+
+# 控制台输出sql、下划线转驼峰
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
