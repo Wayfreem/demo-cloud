@@ -1,61 +1,61 @@
-server:
-  port: 9001
-
-spring:
-  application:
-    name: demo-order
-
-  # 增加 zipkin
-  zipkin:
-    base-url: http://127.0.0.1:9411/ #zipkin地址
-    discovery-client-enabled: false  #不用开启服务发现
-
-  sleuth:
-    sampler:
-      probability: 1.0 #采样百分
-
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.148.139:3306/cloud_video?useUnicode=true&characterEncoding=utf-8&useSSL=false
-    username: admin
-    password: 123456
-
-  cloud:
-
-    ## 增加 nacos 服务发现地址
-    nacos:
-      discovery:
-        server-addr: 192.168.139.1:8848
-
-    ## 增加 sentinel 服务发现地址
-    sentinel:
-      transport:
-        dashboard: 127.0.0.1:8858
-        port: 9999
-
-# 修改轮询策略, 下面这个 demo-video 是服务名（注册再 nacos 上面的名称）
-demo-video:
-  ribbon:
-    # 这个是连接超时时间
-    ConnectTimeout: 1000
-    # 这个是服务处理请求超时时间
-    ReadTimeout: 5000
-    # 对所有的操作进行重试工作
-    OkToRetryOnAllOperations: true
-    # 当超时的时候，最大重试次数，这里是设置了3次，不包含第一次请求那次 ，这个请求重试是在超时服务上试
-    MaxAutoRetries: 2
-    # 如果在调用当前服务重试次数没了，就换个服务
-    MaxAutoRetriesNextServer: 1
-    #负载均衡策略
-    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
-
-# 控制台输出sql、下划线转驼峰
-mybatis:
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-    map-underscore-to-camel-case: true
-
- # 开启Feign对Sentinel的支持
-feign:
-  sentinel:
-    enabled: true
+#server:
+#  port: 9001
+#
+#spring:
+#  application:
+#    name: demo-order
+#
+#  # 增加 zipkin
+#  zipkin:
+#    base-url: http://127.0.0.1:9411/ #zipkin地址
+#    discovery-client-enabled: false  #不用开启服务发现
+#
+#  sleuth:
+#    sampler:
+#      probability: 1.0 #采样百分
+#
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://192.168.148.139:3306/cloud_video?useUnicode=true&characterEncoding=utf-8&useSSL=false
+#    username: admin
+#    password: 123456
+#
+#  cloud:
+#
+#    ## 增加 nacos 服务发现地址
+#    nacos:
+#      discovery:
+#        server-addr: 192.168.139.1:8848
+#
+#    ## 增加 sentinel 服务发现地址
+#    sentinel:
+#      transport:
+#        dashboard: 127.0.0.1:8858
+#        port: 9999
+#
+## 修改轮询策略, 下面这个 demo-video 是服务名（注册再 nacos 上面的名称）
+#demo-video:
+#  ribbon:
+#    # 这个是连接超时时间
+#    ConnectTimeout: 1000
+#    # 这个是服务处理请求超时时间
+#    ReadTimeout: 5000
+#    # 对所有的操作进行重试工作
+#    OkToRetryOnAllOperations: true
+#    # 当超时的时候，最大重试次数，这里是设置了3次，不包含第一次请求那次 ，这个请求重试是在超时服务上试
+#    MaxAutoRetries: 2
+#    # 如果在调用当前服务重试次数没了，就换个服务
+#    MaxAutoRetriesNextServer: 1
+#    #负载均衡策略
+#    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+#
+## 控制台输出sql、下划线转驼峰
+#mybatis:
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#    map-underscore-to-camel-case: true
+#
+# # 开启Feign对Sentinel的支持
+#feign:
+#  sentinel:
+#    enabled: true

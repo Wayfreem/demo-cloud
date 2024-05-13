@@ -4,6 +4,9 @@ import com.demo.model.Video;
 import com.demo.model.VideoOrder;
 import com.demo.service.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -11,21 +14,27 @@ import org.springframework.web.client.RestTemplate;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
-/**
- * @author wuq
- * @Time 2022-8-5 15:57
- * @Description
- */
 @RestController
 @RequestMapping("api/v1/video_order")
+@RefreshScope
 public class OrderController {
 
     @Autowired
     private RestTemplate restTemplate;
+
+    @Qualifier("com.demo.service.VideoService")
     @Autowired
     private VideoService videoService;
+
+    @Value("${video.title}")
+    private String videoTitle;
+
+    @RequestMapping("/configTest")
+    private Map configTest(HttpServletRequest httpRequest) {
+        String serverInfo = httpRequest.getServerName() + ":" + httpRequest.getServerPort();
+        return Map.of("title", "测试返回数据", "videoTitle", videoTitle, "serverInfo", serverInfo);
+    }
 
     @RequestMapping("/save")
     public Object save(int videoId) {
@@ -75,14 +84,14 @@ public class OrderController {
             throw new RuntimeException("服务异常");
         }
 
-        String serverInfo = httpRequest.getServerName() + ":"+ httpRequest.getServerPort();
+        String serverInfo = httpRequest.getServerName() + ":" + httpRequest.getServerPort();
         return Map.of("title", "测试返回数据", "name", "返回名称", "serverInfo", serverInfo);
     }
 
 
     @RequestMapping("gateway")
     private Map gateway(HttpServletRequest httpRequest) {
-        String serverInfo = httpRequest.getServerName() + ":"+ httpRequest.getServerPort();
+        String serverInfo = httpRequest.getServerName() + ":" + httpRequest.getServerPort();
         return Map.of("title", "测试返回数据", "name", "返回名称", "serverInfo", serverInfo);
     }
 
