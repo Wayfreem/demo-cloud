@@ -4,7 +4,7 @@ import com.demo.model.Video;
 import com.demo.service.VideoService;
 import org.springframework.stereotype.Service;
 
-@Service
+@Service("videoServiceFallback")
 public class VideoServiceFallback implements VideoService {
 
     @Override

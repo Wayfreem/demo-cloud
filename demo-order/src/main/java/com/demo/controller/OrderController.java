@@ -7,12 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -33,7 +35,10 @@ public class OrderController {
     @RequestMapping("/configTest")
     private Map configTest(HttpServletRequest httpRequest) {
         String serverInfo = httpRequest.getServerName() + ":" + httpRequest.getServerPort();
-        return Map.of("title", "测试返回数据", "videoTitle", videoTitle, "serverInfo", serverInfo);
+        Map m = new HashMap();
+        m.put("videoTitle", videoTitle);
+        m.put("serverInfo", serverInfo);
+        return m;
     }
 
     @RequestMapping("/save")

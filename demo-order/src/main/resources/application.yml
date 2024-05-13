@@ -1,5 +1,5 @@
 #server:
-#  port: 9001
+#  port: 9000
 #
 #spring:
 #  application:
@@ -55,7 +55,9 @@
 #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 #    map-underscore-to-camel-case: true
 #
-# # 开启Feign对Sentinel的支持
+#  # 开启Feign对Sentinel的支持
 #feign:
 #  sentinel:
 #    enabled: true
+#
+#
